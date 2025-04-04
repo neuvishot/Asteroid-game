@@ -14,7 +14,6 @@ void click() {
 
 class button {
   float x, y, w, h;
-  int other;
   color norm, high;
   String text, pic;
   boolean clicked;
@@ -24,12 +23,11 @@ class button {
 // button(x, y, w, h, normcol, highcol, xxx, "text", ".pic");
 
   // parameters for buttons, x, y, w, h, normal color, highlight, text display
-  button(float xx, float yy, float ww, float hh, color norms, color highs, int modes, String Text, String pics) {
+  button(float xx, float yy, float ww, float hh, color norms, color highs, String Text, String pics) {
     x = xx;
     y = yy;
     w = ww;
     h = hh;
-    other = modes;
     norm = norms;
     high = highs;
     text = Text;
@@ -67,21 +65,15 @@ class button {
     }
   }
 
-// ----- modify as needed------------------
   void clicked() { 
     if (mouseReleased && touchMouse()) {
       clicked = true;
     } else {
       clicked = false;
     }
-
-    if (clicked) {
-      mode = other;
-    }
   }
-// --------------------------------------------------------------------------------
+
   void show() {
-    click();
     rectMode(CENTER);
     if (touchMouse()) {
       fill(high);

@@ -1,5 +1,3 @@
-// this ones empty
-
 int mode;
 final int starts = 1;
 final int game = 2;
@@ -12,23 +10,31 @@ color black = #000000;
 color white = #FFFFFF;
 
 // buttons
- button startbutton, gamebut, pausebut, gameoverbut, toOver;
+button startbutton, toPause, toGame, gameoverbut, toOver;
+boolean yesClicked;
+
+// vecotrs:
+PVector loc, vel, gravity;
 
 void setup() {
+
+  loc = new PVector(width/2, height/2);
+  vel = new PVector(5, 0);
+  vel.rotate(random(0, 2*PI));
+
   size(600, 600);
-  mode = starts;
+  mode = game;
   start_button_instantiate();
   pause_button_instantiate();
   game_button_instantiate();
   gameover_button_instantiate();
-  
+
   // still needs to be improved
-  toOver = new button(100, height-100, 75, 75, red, black, gameover, "gameover", ".png");
 }
 
 void draw() {
-  println(mouseX, mouseY);
-  //println(decide, randomWord, randomColor);
+  //println(mouseX, mouseY);
+  click();
   if (mode == starts) {
     starts();
   } else if (mode == game) {
@@ -47,7 +53,7 @@ void mousePressed() {
     gameClicks();
   } else if (mode == gameover) {
     gameoverClicks();
-  } else if (mode == pause){
+  } else if (mode == pause) {
     pauseClicks();
   }
 }
