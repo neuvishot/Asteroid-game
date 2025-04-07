@@ -9,18 +9,29 @@ color yellow = #FFE517;
 color black = #000000;
 color white = #FFFFFF;
 
+// keys
+boolean upkey, downkey,leftkey, rightkey;
+
 // buttons
-button startbutton, toPause, toGame, gameoverbut, toOver;
+button startbutton, toPause, toGame, toStart, toOver;
 boolean yesClicked;
 
 // vecotrs:
-PVector loc, vel, gravity;
+//PVector loc, vel, gravity;
+
+Spaceship player;
 
 void setup() {
 
-  loc = new PVector(width/2, height/2);
-  vel = new PVector(5, 0);
-  vel.rotate(random(0, 2*PI));
+  player = new Spaceship();
+
+  textAlign(CENTER, CENTER);
+  rectMode(CENTER);
+
+  //loc = new PVector(width/2, height/2);
+  //vel = new PVector(5, 0);
+  //vel.rotate(random(0, 2*PI));
+  //gravity = new PVector(0, 1);
 
   size(600, 600);
   mode = game;

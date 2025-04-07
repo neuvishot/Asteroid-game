@@ -7,14 +7,18 @@ int d = 100;
 
 void game() {
   background(black);
+  
+  player.show();
+  player.move();
 
-  // asteroid
-  fill(255);
-  circle(loc.x, loc.y, d);
-  loc.add(vel);
+  //// asteroid
+  //fill(255);
+  //circle(loc.x, loc.y, d);
+  //loc.add(vel);
+  //vel.add(gravity);
 
-  if (loc.y < d/2 || loc.y > height-d/2) vel.y = -vel.y;
-  if (loc.x < d/2 || loc.x > height-d/2) vel.x = -vel.x;
+  //if (loc.y < d/2 || loc.y > height-d/2) vel.y = -vel.y;
+  //if (loc.x < d/2 || loc.x > height-d/2) vel.x = -vel.x;
   // buttons
   toPause.show();
   toPause.clicked();
@@ -32,7 +36,7 @@ void game() {
 }
 
 void gameClicks() {
-  vel.setMag(vel.mag()*1.1);
-  println(vel.mag());
-  println(degrees(vel.heading()));
+  //vel.setMag(vel.mag()*1.1);
+  //println(vel.mag());
+  //println(degrees(vel.heading()));
 }
