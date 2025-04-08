@@ -5,7 +5,7 @@ void pause_button_instantiate() {
 void pause() {
   
   // buttons 
-  background(white);
+
   toGame.show();
   toGame.clicked();
   toGame.words();

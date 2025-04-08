@@ -1,6 +1,7 @@
 // global variables for the classes
 boolean mouseReleased, wasPressed;
 
+// put this click(); in the top of the draw function
 void click() {
   mouseReleased = false;
   if (mousePressed) wasPressed = true;
@@ -8,9 +9,8 @@ void click() {
     mouseReleased = true;
     wasPressed = false;
   }
-} // note: put the click function before putting button specific button functions
-// this is to make sure that the call for an act is only called one
-// (1 true, all false)
+}
+
 
 class button {
   float x, y, w, h;
