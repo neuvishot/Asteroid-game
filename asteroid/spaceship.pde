@@ -22,6 +22,8 @@ class Spaceship {
   }
   // for show
   void drawship() { //im[rpve how this looks
+    pushMatrix();
+    scale(.7);
     fill(white);
     stroke(white);
     strokeWeight(1);
@@ -29,18 +31,22 @@ class Spaceship {
     ellipse(-15, 0, 25, 25);
     //wings
     fill(black);
-   stroke(white);
-    triangle(25, 5, -20, 25, -20, 5);
-    triangle(25, -5, -20, -25, -20, -5);
-    stroke(black);
-    fill(red);
-    // small triangle
-    //triangle(0, -15, -20, -25, -20, -13);
-    //triangle(0, 15, -20, 25, -20, 13);
+    stroke(white);
+    triangle(25, 3, -20, 25, -20, 5);
+    triangle(25, -3, -20, -25, -20, -5);
 
-    // big triangle
-    triangle(25, -5, -20, -25, -20, -15);
-    triangle(25, 5, -20, 25, -20, 15);
+
+
+    // small triangle
+    fill(white);
+    triangle(-5, -18, -20, -25, -20, -16);
+    triangle(-5, 18, -20, 25, -20, 16);
+    fill(red);
+    triangle(10, 0, -30, 15, -30, -15);
+
+    //// big triangle
+    //triangle(25, -5, -20, -25, -20, -15);
+    //triangle(25, 5, -20, 25, -20, 15);
 
 
 
@@ -52,6 +58,7 @@ class Spaceship {
     //fill(black);
     //stroke(black);
     //circle(10, 0, 5);
+    popMatrix();
   }
 
 
@@ -80,13 +87,16 @@ class Spaceship {
     if (rightkey) dir.rotate(radians(3));
 
 
-    int a = 15;
+    int a = 20;
     if (loc.x > width + a) loc.x = -a;
     if (loc.x < -a) loc.x = width + a;
     if (loc.y > height + a) loc.y = -a;
     if (loc.y < -a) loc.y = height + a;
   }
   void shoot() {
+    if (spacekey) {
+      bullets.add(new bullet());
+    }
   }
 
   void checkForCollisions() {

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 int mode;
 final int starts = 1;
 final int game = 2;
@@ -10,7 +12,7 @@ color black = #000000;
 color white = #FFFFFF;
 
 // keys
-boolean upkey, downkey,leftkey, rightkey;
+boolean upkey, downkey, leftkey, rightkey, spacekey;
 
 // buttons
 button startbutton, toPause, toGame, toStart, toOver;
@@ -21,9 +23,14 @@ boolean yesClicked;
 
 Spaceship player;
 
+// list of bullets
+ArrayList<bullet> bullets;
+
+
 void setup() {
 
   player = new Spaceship();
+  bullets = new ArrayList();
 
   textAlign(CENTER, CENTER);
   rectMode(CENTER);

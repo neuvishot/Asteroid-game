@@ -7,19 +7,23 @@ int d = 100;
 
 void game() {
   background(black);
-  
+
+  // player and bullets ------------------------------------------------
+  int i = 0;
+  while (i < bullets.size()) {
+    // get = Get an entry at a particular index.
+    // in this case, it is taking the index from the bullet array list, this is so that
+    // it can skip from one bullet to the next in a loop
+    bullet currentBullet = bullets.get(i);
+    currentBullet.act();
+    currentBullet.show();
+    i++;
+  }
+
   player.show();
-  player.move();
+  player.act();
 
-  //// asteroid
-  //fill(255);
-  //circle(loc.x, loc.y, d);
-  //loc.add(vel);
-  //vel.add(gravity);
-
-  //if (loc.y < d/2 || loc.y > height-d/2) vel.y = -vel.y;
-  //if (loc.x < d/2 || loc.x > height-d/2) vel.x = -vel.x;
-  // buttons
+  // buttons ----------------------------------------------------
   toPause.show();
   toPause.clicked();
   if (toPause.clicked) {
@@ -29,14 +33,10 @@ void game() {
   toOver.show();
   toOver.words();
   toOver.clicked();
-  
   if (toOver.clicked) {
     mode = gameover;
   }
 }
 
 void gameClicks() {
-  //vel.setMag(vel.mag()*1.1);
-  //println(vel.mag());
-  //println(degrees(vel.heading()));
 }
