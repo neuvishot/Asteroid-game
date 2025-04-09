@@ -10,7 +10,7 @@ void game() {
 
   // player and bullets ------------------------------------------------
   int i = 0;
-  while (i < bullets.size()) {
+  while (i < bullets.size()) { // whats .size?
     // get = Get an entry at a particular index.
     // in this case, it is taking the index from the bullet array list, this is so that
     // it can skip from one bullet to the next in a loop
