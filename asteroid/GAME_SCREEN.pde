@@ -10,14 +10,18 @@ void game() {
 
   // player and bullets ------------------------------------------------
   int i = 0;
-  while (i < bullets.size()) { // whats .size?
+  while (i < objects.size()) { // whats .size?
     // get = Get an entry at a particular index.
     // in this case, it is taking the index from the bullet array list, this is so that
     // it can skip from one bullet to the next in a loop
-    bullet currentBullet = bullets.get(i);
-    currentBullet.act();
-    currentBullet.show();
-    i++;
+    GameObject currentObject = objects.get(i);
+    currentObject.act();
+    currentObject.show();
+    if (currentObject.lives == 0){
+      objects.remove(i);
+    } else {
+      i++;
+    }
   }
 
   player.show();

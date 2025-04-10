@@ -24,13 +24,13 @@ boolean yesClicked;
 Spaceship player;
 
 // list of bullets
-ArrayList<bullet> bullets;
+ArrayList<GameObject> objects;
 
 
 void setup() {
-
+  objects = new ArrayList();
   player = new Spaceship();
-  bullets = new ArrayList();
+  objects.add(player);
 
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
@@ -52,6 +52,7 @@ void setup() {
 
 void draw() {
   //println(mouseX, mouseY);
+  println(objects.size());
   click();
   if (mode == starts) {
     starts();

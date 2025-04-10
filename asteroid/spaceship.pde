@@ -1,12 +1,12 @@
-class Spaceship {
+class Spaceship extends GameObject {
   // instance variables
-  PVector loc, vel, dir;
+  // they get loc and vel from gameObject
+  PVector dir;
   // nice to addd how many lives you have left
 
   // constructors
   Spaceship() {
-    loc = new PVector(width/2, height/2);
-    vel = new PVector(0, 0);
+    super(width/2, height/2, 0, 0);
     dir = new PVector(1, 0);
   }
 
@@ -95,7 +95,7 @@ class Spaceship {
   }
   void shoot() {
     if (spacekey) {
-      bullets.add(new bullet());
+      objects.add(new bullet());
     }
   }
 
