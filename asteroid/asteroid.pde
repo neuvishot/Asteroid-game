@@ -26,15 +26,14 @@ Spaceship player;
 // list of bullets
 ArrayList<GameObject> objects;
 
-
 void setup() {
   objects = new ArrayList();
   player = new Spaceship();
   objects.add(player);
+  objects.add(new rocks());
 
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
-
   //loc = new PVector(width/2, height/2);
   //vel = new PVector(5, 0);
   //vel.rotate(random(0, 2*PI));

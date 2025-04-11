@@ -7,7 +7,7 @@ class bullet extends GameObject {
     super(player.loc.copy(), player.dir.copy(), 160);
     // no need to do a new PVector bcs its been taken from the superclass
     vel.setMag(8);
-    timer = 160;
+    timer = 60;
   }
 
 
@@ -21,12 +21,8 @@ class bullet extends GameObject {
 
   void act() {
     loc.add(vel);
-    int a = 20;
     timer--;
+    wrap();
     if (timer == 0) lives = 0;
-    if (loc.x > width + a) loc.x = -a;
-    if (loc.x < -a) loc.x = width + a;
-    if (loc.y > height + a) loc.y = -a;
-    if (loc.y < -a) loc.y = height + a;
   }
 }

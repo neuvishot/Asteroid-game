@@ -14,7 +14,7 @@ class GameObject {
     vel = v;
   }
 
-  GameObject(PVector l, PVector v, int lv) {
+  GameObject(PVector l, PVector v, int lv) { // i dont really understand lives
     loc = l;
     vel = v;
     lives = lv = 1;
@@ -25,5 +25,12 @@ class GameObject {
   }
 
   void show() {
+  }
+   void wrap() {
+    int a = 20;
+    if (loc.x > width + a) loc.x = -a;
+    if (loc.x < -a) loc.x = width + a;
+    if (loc.y > height + a) loc.y = -a;
+    if (loc.y < -a) loc.y = height + a;
   }
 }

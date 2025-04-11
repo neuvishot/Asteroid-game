@@ -2,12 +2,15 @@ class Spaceship extends GameObject {
   // instance variables
   // they get loc and vel from gameObject
   PVector dir;
+  int cooldown, coolInt;
   // nice to addd how many lives you have left
 
   // constructors
   Spaceship() {
     super(width/2, height/2, 0, 0);
     dir = new PVector(1, 0);
+    coolInt = 20;
+    cooldown = coolInt;
   }
 
 
@@ -63,8 +66,9 @@ class Spaceship extends GameObject {
 
 
   void act() {
-    move(); // up down arrows
-    shoot(); // maybe mouse?
+    move(); 
+    shoot();
+    wrap();
     checkForCollisions(); // i have no udea lmfao
   }
 
@@ -85,17 +89,12 @@ class Spaceship extends GameObject {
 
     if (leftkey) dir.rotate(-radians(3));
     if (rightkey) dir.rotate(radians(3));
-
-
-    int a = 20;
-    if (loc.x > width + a) loc.x = -a;
-    if (loc.x < -a) loc.x = width + a;
-    if (loc.y > height + a) loc.y = -a;
-    if (loc.y < -a) loc.y = height + a;
   }
   void shoot() {
-    if (spacekey) {
+    cooldown--;
+    if (spacekey && cooldown <= 0) {
       objects.add(new bullet());
+      cooldown = coolInt;
     }
   }
 
