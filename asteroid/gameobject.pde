@@ -25,6 +25,7 @@ class GameObject {
     loc = l;
     vel = v;
     lives = lv;
+
   }
   //behavior
 

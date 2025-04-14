@@ -8,6 +8,7 @@ class bullet extends GameObject {
     // no need to do a new PVector bcs its been taken from the superclass
     vel.setMag(8);
     timer = 60;
+    diameter = 5;
   }
 
 
@@ -16,7 +17,7 @@ class bullet extends GameObject {
     fill(black);
     stroke(white);
     strokeWeight(2);
-    circle(loc.x, loc.y, 5);
+    circle(loc.x, loc.y, diameter);
   }
 
   void act() {
