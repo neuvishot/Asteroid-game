@@ -11,7 +11,7 @@ class bullet extends GameObject {
   }
 
 
-  // behaviors
+  // behaviorsa
   void show() {
     fill(black);
     stroke(white);
@@ -23,6 +23,6 @@ class bullet extends GameObject {
     loc.add(vel);
     timer--;
     wrap();
-    if (timer == 0) lives = 0;
+    if (timer <= 0) lives = 0;
   }
 }

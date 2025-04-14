@@ -11,6 +11,7 @@ class Spaceship extends GameObject {
     dir = new PVector(1, 0);
     coolInt = 20;
     cooldown = coolInt;
+    diameter = 20;
   }
 
 
