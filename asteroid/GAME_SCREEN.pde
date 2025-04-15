@@ -8,6 +8,8 @@ int d = 100;
 void game() {
   background(black);
 
+
+
   // player and bullets ------------------------------------------------
   int i = 0;
   while (i < objects.size()) { // whats .size?

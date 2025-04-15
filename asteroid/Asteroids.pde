@@ -1,5 +1,6 @@
 class rocks extends GameObject {
 
+  float rot;
 
   rocks() {
     super(random(width), random(height), 1, 1);
@@ -7,11 +8,17 @@ class rocks extends GameObject {
     vel.rotate(random(TWO_PI));
     lives = 3;
   }
+
   rocks(PVector L, PVector V) {
     super(L, V);
     loc = L;
     vel = V;
-    vel.setMag(random(1, 3));
+  }
+
+  rocks(float x, float y, float c, float k) {
+    super(x, y, c, k);
+    loc.add(x,y);
+    vel.add(c,k);
   }
 
 
@@ -19,16 +26,32 @@ class rocks extends GameObject {
 
   void show() {
     diameter = lives*50;
-    fill(black);
-    stroke(white);
-    circle(loc.x, loc.y, diameter);
-    line(loc.x, loc.y, loc.x+ diameter/2, loc.y);
+
+    if (lives == 3) {
+      fill(black);
+      stroke(white);
+      circle(loc.x, loc.y, diameter);
+      line(loc.x, loc.y, loc.x+ diameter/2, loc.y);
+      
+    } else if (lives == 2) {
+      fill(yellow);
+      stroke(white);
+      circle(loc.x, loc.y, diameter);
+      line(loc.x, loc.y, loc.x+ diameter/2, loc.y);
+      
+    } else if (lives == 1) {
+      fill(red);
+      stroke(white);
+      circle(loc.x, loc.y, diameter);
+      line(loc.x, loc.y, loc.x+ diameter/2, loc.y);
+    }
   }
 
   void act() {
     wrap();
     loc.add(vel);
     checkForCollisions();
+
 
     // like an, if lives are 3 biggest
     // if lvies = 2, its medium sized
@@ -46,8 +69,9 @@ class rocks extends GameObject {
         if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && lives == 3) {
           lives = 2; // current objects lives (asteroid)
           obj.lives = 0; // bullet dies
-          objects.add(new rocks(loc, vel.rotate(random(TWO_PI))));
-          objects.add(new rocks(loc.add(3,3), vel.rotate(random(TWO_PI))));
+          objects.add(new rocks(loc.copy(), vel.rotate(random(TWO_PI))));
+          objects.add(new rocks(loc.copy(), vel.rotate(random(TWO_PI))));
+          objects.add(new rocks(1, 1, 1, 1));
         } else if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && lives == 2) {
           lives = 1;
           obj.lives = 0;

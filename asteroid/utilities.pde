@@ -1,3 +1,53 @@
+class gifs { //  start gif class --------------------------------------------------------------------------------------
+
+  float x, y, s, w, h;
+  int n, flip;
+  String t1, t2;
+  PImage[] giff;
+  // flip = flipping through frames
+  // n = number of frames
+  // giff = array to load everything and index to flip through
+
+  gifs(String tt1, String tt2, int numberOfFrames, float speed, float xx, float yy, float ww, float hh) {
+    x = xx;
+    y = yy;
+    s = speed;
+    w = ww;
+    h = hh;
+
+    // for loading images
+    n = numberOfFrames;
+    t1 = tt1;
+    t2 = tt2;
+    giff = new PImage[n];
+    int frameLoad = 0;
+    while (frameLoad < n) {
+      giff[frameLoad] = loadImage(tt1+frameLoad+tt2);
+      frameLoad++;
+    }
+  }
+
+  void show() {
+    pushMatrix();
+    imageMode(CENTER);
+    image(giff[flip], x, y, w, h);
+    
+    popMatrix();
+  }
+
+  void act() {
+   if (frameCount % s == 0) flip++;
+    if (flip == n){
+     flip = 0; 
+    }
+    
+  }
+}
+// end gif class -------------------------------------------------------------------------------
+
+
+// all button related ================================================================================================
+
 // global variables for the classes
 boolean mouseReleased, wasPressed;
 
@@ -12,7 +62,8 @@ void click() {
 }
 
 
-class button {
+class button { // -------------------------------------------------------------------------------------------------
+
   float x, y, w, h;
   color norm, high;
   String text, pic;
