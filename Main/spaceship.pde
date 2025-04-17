@@ -1,4 +1,4 @@
-class Spaceship extends GameObject {
+ class Spaceship extends GameObject {
   // instance variables
   // they get loc and vel from gameObject
   PVector dir;
@@ -45,6 +45,8 @@ class Spaceship extends GameObject {
     fill(white);
     triangle(-5, -18, -20, -25, -20, -16);
     triangle(-5, 18, -20, 25, -20, 16);
+    
+    // make triangle change color
     fill(red);
     triangle(10, 0, -30, 15, -30, -15);
 

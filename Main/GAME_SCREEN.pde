@@ -8,9 +8,7 @@ int d = 100;
 void game() {
   background(black);
 
-
-
-  // player and bullets ------------------------------------------------
+  // player, bullets and asteroids ------------------------------------------------
   int i = 0;
   while (i < objects.size()) { // whats .size?
     // get = Get an entry at a particular index.

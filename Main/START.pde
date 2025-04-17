@@ -1,5 +1,5 @@
 void Start_instantiates() { // to lessen tab jumping
-  startbutton = new button(width/2, height/3, 200, 100, red, white, "sdsd", ".png");
+  startbutton = new button(width/2-50, height-150, 200, 100, red, white, "to game", ".png");
   start = new gifs("start/frame_", "_delay-0.03s.gif", 13, 3, width/2+50, height/2, width+300, height);
 }
 
@@ -12,6 +12,7 @@ void starts() {
   start.show();
   startbutton.show();
   startbutton.clicked();
+  startbutton.words();
 
   if (startbutton.clicked) {
     mode = game;

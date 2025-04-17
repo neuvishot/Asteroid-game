@@ -31,6 +31,8 @@ void setup() {
   player = new Spaceship();
   objects.add(player);
   objects.add(new rocks());
+  objects.add(new rocks());
+  
 
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
@@ -50,8 +52,8 @@ void setup() {
 }
 
 void draw() {
-  //println(mouseX, mouseY);
-  println(objects.size());
+  println(mouseX, mouseY);
+  //println(objects.size());
   click();
   if (mode == starts) {
     starts();
