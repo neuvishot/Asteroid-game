@@ -1,8 +1,10 @@
- class Spaceship extends GameObject {
+class Spaceship extends GameObject {
   // instance variables
   // they get loc and vel from gameObject
   PVector dir;
   int cooldown, coolInt;
+  int shield = 240;
+  boolean touch;
   // nice to addd how many lives you have left
 
   // constructors
@@ -12,6 +14,7 @@
     coolInt = 20;
     cooldown = coolInt;
     diameter = 20;
+    lives = 3;
   }
 
 
@@ -45,7 +48,7 @@
     fill(white);
     triangle(-5, -18, -20, -25, -20, -16);
     triangle(-5, 18, -20, 25, -20, 16);
-    
+
     // make triangle change color
     fill(red);
     triangle(10, 0, -30, 15, -30, -15);
@@ -69,16 +72,16 @@
 
 
   void act() {
-    move(); 
+    move();
     shoot();
     wrap();
     checkForCollisions(); // i have no udea lmfao
+    println(lives);
   }
 
   // for act:
   void move() {
     loc.add(vel);
-
     int i = 3;
     if (vel.mag() > i) {
       vel.setMag(i);
@@ -102,5 +105,33 @@
   }
 
   void checkForCollisions() {
+    int i = 0;
+    while (i < objects.size()) {
+      GameObject obj = objects.get(i);
+      shield--;
+
+      //while (shield >=0) {
+      //  circle(loc.x, loc.y, 50);
+      //}
+
+      if (touch) {
+        lives = lives -1;
+        shield = 240;
+      }
+
+      if (obj instanceof rocks) {
+        if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && shield <=0) {
+          touch = true;
+        } else {
+          touch = false;
+        }
+      }
+
+      if (lives <= 0) {
+        mode = gameover;
+        lose = true;
+      }
+      i++;
+    }
   }
 }

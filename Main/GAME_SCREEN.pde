@@ -39,6 +39,7 @@ void game() {
   toOver.clicked();
   if (toOver.clicked) {
     mode = gameover;
+    lose = true;
   }
 }
 

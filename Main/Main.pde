@@ -42,7 +42,11 @@ void setup() {
   //gravity = new PVector(0, 1);
 
   size(600, 600);
-  mode = starts;
+  
+  // change starting room -------------------------------------------------------------
+  mode = game;
+  // ------------------------------------------------------------------------------------
+  
   Start_instantiates();
   pause_button_instantiate();
   game_button_instantiate();

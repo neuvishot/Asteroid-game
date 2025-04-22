@@ -3,16 +3,21 @@ void gameover_button_instantiate() {
   sad = new gifs("gameover/frame_", "_delay-0.03s.gif", 33, 3, width/2+50, height/2, width+400, height);
 }
 gifs sad;
+boolean lose, win;
 
 void gameover() {
-  background(red);
-  
-  sad.act();
-  sad.show();
-  
+  if (lose) {
+    background(red);
+  } else if (win) {
+
+    sad.act();
+    sad.show();
+  }
+
+
   toStart.show();
   toStart.clicked();
-  
+
 
   if (toStart.clicked) {
     mode = starts;

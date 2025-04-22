@@ -1,4 +1,5 @@
 class rocks extends GameObject {
+  float rot = 1;
 
   rocks() {
     super(random(width), random(height), 1, 1);
@@ -48,19 +49,17 @@ class rocks extends GameObject {
 
   void checkForCollisions() {
     int i = 0;
-
     while (i < objects.size()) {
       GameObject obj = objects.get(i); // refering to the current objectdwa
 
+     
       //// ball bounce
-      //if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) <= obj.diameter + diameter) {
-      //  if (obj instanceof rocks) {
+      //if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) <= obj.diameter + diameter && obj instanceof rocks) {
       //    float CurAstx = loc.x - obj.loc.x;
       //    float CurAsty = loc.y - obj.loc.y;
 
-      //    obj.vel.x = CurAstx / 15;
-      //    obj.vel.y = CurAsty/ 15;
-      //  }
+      //    obj.vel.x = - CurAstx / 15;
+      //    obj.vel.y = -  CurAsty/ 15;
       //}
 
 
@@ -72,8 +71,10 @@ class rocks extends GameObject {
           objects.add(new rocks(loc, vel.copy(), 2));
           objects.add(new rocks(loc.copy(), vel.rotate(radians(random(100, 180))), 2));
         } else if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && lives == 2) {
-          lives = 1;
+          lives = 0;
           obj.lives = 0;
+          objects.add(new rocks(loc, vel.copy(), 1));
+          objects.add(new rocks(loc.copy(), vel.rotate(radians(random(100, 180))), 1));
         } else if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && lives == 1) {
           lives = 0;
           if (lives == 0) objects.remove(i);
