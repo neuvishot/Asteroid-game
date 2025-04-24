@@ -1,5 +1,5 @@
 class rocks extends GameObject {
-  float rot = 1;
+  float rots;
 
   rocks() {
     super(random(width), random(height), 1, 1);
@@ -22,23 +22,39 @@ class rocks extends GameObject {
   }
 
   void show() {
+    pushMatrix();
+    translate(loc.x, loc.y);
+    rots++;
+    drawRock();
+    popMatrix();
+  }
+
+  void drawRock() {
+    pushMatrix();
     diameter = lives*50;
     if (lives == 3) {
+      rotate(radians(rots));
       fill(black);
       stroke(white);
-      circle(loc.x, loc.y, diameter);
-      line(loc.x, loc.y, loc.x+ diameter/2, loc.y);
+      circle(0, 0, diameter);
+      line(0-diameter/2, 0, 0+ diameter/2, 0);
+      image(cat, 0, 0, diameter, diameter);
     } else if (lives == 2) {
+      rotate(radians(rots));
       fill(yellow);
       stroke(white);
-      circle(loc.x, loc.y, diameter);
-      line(loc.x, loc.y, loc.x+ diameter/2, loc.y);
+      circle(0, 0, diameter);
+      line(0-diameter/2, 0, 0+ diameter/2, 0);
+      image(squire, 0, 0, diameter, diameter);
     } else if (lives == 1) {
+      rotate(radians(rots));
       fill(red);
       stroke(white);
-      circle(loc.x, loc.y, diameter);
-      line(loc.x, loc.y, loc.x+ diameter/2, loc.y);
+      circle(0, 0, diameter);
+      line(0-diameter/2, 0, 0+ diameter/2, 0);
+      image(hamp, 0, 0, diameter, diameter);
     }
+    popMatrix();
   }
 
   void act() {
@@ -52,15 +68,15 @@ class rocks extends GameObject {
     while (i < objects.size()) {
       GameObject obj = objects.get(i); // refering to the current objectdwa
 
-     
-      //// ball bounce
-      //if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) <= obj.diameter + diameter && obj instanceof rocks) {
-      //    float CurAstx = loc.x - obj.loc.x;
-      //    float CurAsty = loc.y - obj.loc.y;
 
-      //    obj.vel.x = - CurAstx / 15;
-      //    obj.vel.y = -  CurAsty/ 15;
-      //}
+      //      // ball bounce
+      //      if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) <= obj.diameter + diameter && obj instanceof rocks) {
+      //          float CurAstx = loc.x - obj.loc.x;
+      //          float CurAsty = loc.y - obj.loc.y;
+
+      //          obj.vel.x = - CurAstx / 15;
+      //          obj.vel.y = -  CurAsty/ 15;
+      //      }
 
 
       if (obj instanceof bullet) { // checking to see if the object nearing is of the bullet class

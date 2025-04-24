@@ -8,6 +8,7 @@ int d = 100;
 void game() {
   background(black);
 
+
   // player, bullets and asteroids ------------------------------------------------
   int i = 0;
   while (i < objects.size()) { // whats .size?
@@ -17,7 +18,7 @@ void game() {
     GameObject currentObject = objects.get(i);
     currentObject.act();
     currentObject.show();
-    if (currentObject.lives == 0){
+    if (currentObject.lives == 0) {
       objects.remove(i);
     } else {
       i++;
@@ -41,6 +42,7 @@ void game() {
     mode = gameover;
     lose = true;
   }
+
 }
 
 void gameClicks() {

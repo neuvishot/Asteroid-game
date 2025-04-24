@@ -14,6 +14,8 @@ color white = #FFFFFF;
 // keys
 boolean upkey, downkey, leftkey, rightkey, spacekey;
 
+PImage cat, squire, hamp, shields, heart;
+
 // buttons
 button startbutton, toPause, toGame, toStart, toOver;
 boolean yesClicked;
@@ -27,12 +29,23 @@ Spaceship player;
 ArrayList<GameObject> objects;
 
 void setup() {
+  // images -----------------------------------------------------------
+  imageMode(CENTER);
+  cat = loadImage("cat.png");
+  squire = loadImage("squirrel.png");
+  hamp = loadImage("hampster.png");
+  shields = loadImage("shield.png");
+  heart = loadImage("lives.png");
+  
+  // img end -----------------------------------------------------------------
+  
   objects = new ArrayList();
   player = new Spaceship();
   objects.add(player);
   objects.add(new rocks());
   objects.add(new rocks());
-  
+  //objects.add(new rocks());
+  //objects.add(new rocks());
 
   textAlign(CENTER, CENTER);
   rectMode(CENTER);

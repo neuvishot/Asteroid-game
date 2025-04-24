@@ -14,8 +14,27 @@ void starts() {
   startbutton.clicked();
   startbutton.words();
 
+  int i = 0;
+  while (i < objects.size()) {
+    GameObject currentObject = objects.get(i);
+    currentObject.lives = 0;
+    if (currentObject.lives == 0) {
+      objects.remove(i);
+    } else {
+      i++;
+    }
+  }
+
   if (startbutton.clicked) {
     mode = game;
+
+    objects = new ArrayList();
+    player = new Spaceship();
+    objects.add(player);
+    objects.add(new rocks());
+    objects.add(new rocks());
+    //objects.add(new rocks());
+    //objects.add(new rocks());
   }
 }
 

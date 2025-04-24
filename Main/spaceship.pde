@@ -3,8 +3,9 @@ class Spaceship extends GameObject {
   // they get loc and vel from gameObject
   PVector dir;
   int cooldown, coolInt;
-  int shield = 240;
-  boolean touch;
+  int shield = 300;
+  int imgTint = 60;
+  int augh = 3;
   // nice to addd how many lives you have left
 
   // constructors
@@ -20,15 +21,40 @@ class Spaceship extends GameObject {
 
   // behavior functions
   void show() {
+    // behind heart ------------------------
+    fill(#FFC036);
+    noStroke();
+    ellipse(190, 0, 100, 150);
+    rectMode(LEFT);
+    rect(-5, -5, 190, 75);
+    stroke(0);
+    rectMode(CENTER);
+    
+    if (lives == 3) {
+      image(heart, 50, 40, 75, 75);
+      image(heart, 120, 40, 75, 75);
+      image(heart, 190, 40, 75, 75);
+    } else if (lives == 2) {
+      image(heart, 50, 40, 75, 75);
+      image(heart, 120, 40, 75, 75);
+    } else if (lives == 1) {
+      image(heart, 50, 40, 75, 75);
+    }
+
     pushMatrix();
     translate(loc.x, loc.y);
     rotate(dir.heading());
 
+
+
+
     drawship();
     popMatrix();
   }
+
+
   // for show
-  void drawship() { //im[rpve how this looks
+  void drawship() {
     pushMatrix();
     scale(.7);
     fill(white);
@@ -41,8 +67,6 @@ class Spaceship extends GameObject {
     stroke(white);
     triangle(25, 3, -20, 25, -20, 5);
     triangle(25, -3, -20, -25, -20, -5);
-
-
 
     // small triangle
     fill(white);
@@ -76,13 +100,17 @@ class Spaceship extends GameObject {
     shoot();
     wrap();
     checkForCollisions(); // i have no udea lmfao
-    println(lives);
+    //println(lives);
+
+    // img tint
+    imgTint = imgTint + augh;
+    if (imgTint > 70 || imgTint < 20) augh = augh * -1;
   }
 
   // for act:
   void move() {
     loc.add(vel);
-    int i = 3;
+    int i = 2;
     if (vel.mag() > i) {
       vel.setMag(i);
     } else if (vel.mag() < -i) {
@@ -110,20 +138,22 @@ class Spaceship extends GameObject {
       GameObject obj = objects.get(i);
       shield--;
 
-      //while (shield >=0) {
-      //  circle(loc.x, loc.y, 50);
-      //}
-
-      if (touch) {
-        lives = lives -1;
-        shield = 240;
+      if (shield >=0) {
+        pushMatrix();
+        translate(loc.x, loc.y);
+        rotate(dir.heading()+radians(90));
+        tint(255, imgTint);
+        image(shields, 0, -10, 90, 90);
+        tint(255, 255);
+        popMatrix();
       }
+
 
       if (obj instanceof rocks) {
         if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && shield <=0) {
-          touch = true;
-        } else {
-          touch = false;
+
+          lives = lives -1;
+          shield = 500;
         }
       }
 
