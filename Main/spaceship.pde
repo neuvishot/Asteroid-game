@@ -21,6 +21,13 @@ class Spaceship extends GameObject {
 
   // behavior functions
   void show() {
+
+    pushMatrix();
+    translate(loc.x, loc.y);
+    rotate(dir.heading());
+    drawship();
+    popMatrix();
+
     // behind heart ------------------------
     fill(#FFC036);
     noStroke();
@@ -29,7 +36,7 @@ class Spaceship extends GameObject {
     rect(-5, -5, 190, 75);
     stroke(0);
     rectMode(CENTER);
-    
+
     if (lives == 3) {
       image(heart, 50, 40, 75, 75);
       image(heart, 120, 40, 75, 75);
@@ -40,16 +47,6 @@ class Spaceship extends GameObject {
     } else if (lives == 1) {
       image(heart, 50, 40, 75, 75);
     }
-
-    pushMatrix();
-    translate(loc.x, loc.y);
-    rotate(dir.heading());
-
-
-
-
-    drawship();
-    popMatrix();
   }
 
 
