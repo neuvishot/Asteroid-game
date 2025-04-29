@@ -44,6 +44,7 @@ void setup() {
   objects.add(player);
   objects.add(new rocks());
   objects.add(new rocks());
+ 
   //objects.add(new rocks());
   //objects.add(new rocks());
 

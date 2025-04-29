@@ -113,7 +113,12 @@ class Spaceship extends GameObject {
     } else if (vel.mag() < -i) {
       vel.setMag(-i);
     }
-    if (upkey)vel.add(dir);
+    if (upkey) { // oui oui baguette darling
+      vel.add(dir);
+      if (frameCount % 10 == 0) {
+        objects.add(new particle());
+      }
+    }
     if (downkey) vel.sub(dir);
     if (upkey && downkey) vel.setMag(0);
     if (!upkey || !downkey)vel.setMag(vel.mag()/1.03);
