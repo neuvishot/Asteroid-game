@@ -27,6 +27,11 @@ class GameObject {
     lives = lv;
 
   }
+  
+   GameObject(int lv) { // i dont really understand lives
+    lives = lv;
+
+  }
   //behavior
 
   void act() {

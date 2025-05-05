@@ -115,10 +115,11 @@ class Spaceship extends GameObject {
     }
     if (upkey) { // oui oui baguette darling
       vel.add(dir);
-      if (frameCount % 10 == 0) {
+      if (frameCount % 5 == 0) {
         objects.add(new particle());
       }
     }
+    
     if (downkey) vel.sub(dir);
     if (upkey && downkey) vel.setMag(0);
     if (!upkey || !downkey)vel.setMag(vel.mag()/1.03);
@@ -140,7 +141,7 @@ class Spaceship extends GameObject {
       GameObject obj = objects.get(i);
       shield--;
 
-      if (shield >=0) {
+      if (shield >= 0) {
         pushMatrix();
         translate(loc.x, loc.y);
         rotate(dir.heading()+radians(90));

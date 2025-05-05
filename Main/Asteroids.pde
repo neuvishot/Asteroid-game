@@ -1,5 +1,6 @@
 class rocks extends GameObject {
   float rots;
+  int partimer = 10;
 
   rocks() {
     super(random(width), random(height), 1, 1);
@@ -79,18 +80,24 @@ class rocks extends GameObject {
       //      }
 
 
-      if (obj instanceof bullet) { // checking to see if the object nearing is of the bullet class
+      if (obj instanceof bullet) { // add goiod bullet boolean later
+        // checking to see if the object nearing is of the bullet class
         // if the distance between these x and y's are less than their radius combined then..
         if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && lives == 3) {
           lives = 0; // current objects lives (asteroid)
           obj.lives = 0; // bullet dies
           objects.add(new rocks(loc, vel.copy(), 2));
           objects.add(new rocks(loc.copy(), vel.rotate(radians(random(100, 180))), 2));
+
+          if (partimer >= 0) {
+            objects.add(new particle(60));
+            partimer--;
+          }
         } else if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && lives == 2) {
           lives = 0;
           obj.lives = 0;
-          objects.add(new rocks(loc, vel.copy(), 1));
-          objects.add(new rocks(loc.copy(), vel.rotate(radians(random(100, 180))), 1));
+          objects.add(new rocks(loc, obj.vel.copy(), 1));
+          objects.add(new rocks(loc.copy(), obj.vel.rotate(radians(random(100, 180))), 1));
         } else if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && lives == 1) {
           lives = 0;
           if (lives == 0) objects.remove(i);
