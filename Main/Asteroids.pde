@@ -87,19 +87,34 @@ class rocks extends GameObject {
           lives = 0; // current objects lives (asteroid)
           obj.lives = 0; // bullet dies
           objects.add(new rocks(loc, vel.copy(), 2));
-          objects.add(new rocks(loc.copy(), vel.rotate(radians(random(100, 180))), 2));
+          objects.add(new rocks(loc.copy(), vel.copy().rotate(radians(random(100, 180))), 2));
 
-          if (partimer >= 0) {
-            objects.add(new particle(60));
+          // particles
+          while (partimer >=0) {
+            objects.add(new particle(loc.copy(), vel.copy().rotate(radians(random(0, 360))), 60));
             partimer--;
           }
         } else if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && lives == 2) {
           lives = 0;
           obj.lives = 0;
-          objects.add(new rocks(loc, obj.vel.copy(), 1));
-          objects.add(new rocks(loc.copy(), obj.vel.rotate(radians(random(100, 180))), 1));
+          objects.add(new rocks(loc, vel.copy(), 1));
+          objects.add(new rocks(loc.copy(), vel.copy().rotate(radians(random(100, 180))), 1));
+          
+          // particles
+          partimer = 10;
+          while (partimer >=0) {
+            objects.add(new particle(loc.copy(), vel.copy().rotate(radians(random(0, 360))), 60));
+            partimer--;
+          }
         } else if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && lives == 1) {
           lives = 0;
+
+          // particles
+          partimer = 10;
+          while (partimer >=0) {
+            objects.add(new particle(loc.copy(), vel.copy().rotate(radians(random(0, 360))), 60));
+            partimer--;
+          }
           if (lives == 0) objects.remove(i);
           obj.lives = 0;
         }

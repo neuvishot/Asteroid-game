@@ -129,7 +129,7 @@ class Spaceship extends GameObject {
   }
   void shoot() {
     cooldown--;
-    if (spacekey && cooldown <= 0) {
+    if (spacekey && cooldown <= 0 || downkey && cooldown <= 0) {
       objects.add(new bullet());
       cooldown = coolInt;
     }

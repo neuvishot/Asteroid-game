@@ -5,7 +5,12 @@ class GameObject {
   float diameter;
 
   // constructor
-  GameObject(float lx, float ly, float vx, float vy) {
+  GameObject(float lx, float ly, int lv) {
+    loc = new PVector(lx, ly);
+    vel = new PVector(1, 0);
+    lives = lv;
+  }
+    GameObject(float lx, float ly, float vx, float vy) {
     loc = new PVector(lx, ly);
     vel = new PVector(vx, vy);
   }
@@ -16,9 +21,9 @@ class GameObject {
     diameter = d;
   }
   
-  GameObject(PVector l, PVector v) {
+  GameObject(PVector l, int lv) {
     loc = l;
-    vel = v;
+    lives = lv;
   }
 
   GameObject(PVector l, PVector v, int lv) { // i dont really understand lives
@@ -28,10 +33,6 @@ class GameObject {
 
   }
   
-   GameObject(int lv) { // i dont really understand lives
-    lives = lv;
-
-  }
   //behavior
 
   void act() {

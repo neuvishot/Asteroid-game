@@ -9,7 +9,6 @@ void gameover() {
   if (lose) {
     background(red);
   } else if (win) {
-
     sad.act();
     sad.show();
   }
