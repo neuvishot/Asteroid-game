@@ -3,7 +3,7 @@ class Spaceship extends GameObject {
   // they get loc and vel from gameObject
   PVector dir;
   int cooldown, coolInt;
-  int shield = 300;
+  int shield = 400;
   int imgTint = 60;
   int augh = 3;
   // nice to addd how many lives you have left
@@ -119,7 +119,7 @@ class Spaceship extends GameObject {
         objects.add(new particle());
       }
     }
-    
+
     if (downkey) vel.sub(dir);
     if (upkey && downkey) vel.setMag(0);
     if (!upkey || !downkey)vel.setMag(vel.mag()/1.03);
@@ -141,6 +141,14 @@ class Spaceship extends GameObject {
       GameObject obj = objects.get(i);
       shield--;
 
+
+      if (obj instanceof rocks) {
+        if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && shield <=0) {
+
+          lives = lives -1;
+          shield = 500;
+        }
+      }
       if (shield >= 0) {
         pushMatrix();
         translate(loc.x, loc.y);
@@ -149,15 +157,6 @@ class Spaceship extends GameObject {
         image(shields, 0, -10, 90, 90);
         tint(255, 255);
         popMatrix();
-      }
-
-
-      if (obj instanceof rocks) {
-        if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && shield <=0) {
-
-          lives = lives -1;
-          shield = 500;
-        }
       }
 
       if (lives <= 0) {

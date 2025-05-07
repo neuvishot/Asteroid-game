@@ -22,7 +22,7 @@ boolean yesClicked;
 
 // vecotrs:
 //PVector loc, vel, gravity;
-
+PImage ufo;
 Spaceship player;
 
 // list of bullets
@@ -36,14 +36,11 @@ void setup() {
   hamp = loadImage("hampster.png");
   shields = loadImage("shield.png");
   heart = loadImage("lives.png");
+  ufo = loadImage("ufo.png");
   
   // img end -----------------------------------------------------------------
   
-  objects = new ArrayList();
-  player = new Spaceship();
-  objects.add(player);
-  objects.add(new rocks());
-  objects.add(new rocks());
+  objInstantiate();  
  
   //objects.add(new rocks());
   //objects.add(new rocks());
@@ -68,6 +65,15 @@ void setup() {
 
   // still needs to be improved
 }
+void objInstantiate(){
+   objects = new ArrayList();
+  player = new Spaceship();
+  objects.add(player);
+  objects.add(new rocks());
+  objects.add(new rocks());
+  objects.add(new badShip()); 
+}
+
 
 void draw() {
   println(mouseX, mouseY);

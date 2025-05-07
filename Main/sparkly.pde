@@ -31,7 +31,7 @@ class particle extends GameObject {
     //dir.rotate(-radians(3));
     float m = map(lives, 0, 60, 0, 255);
     float reduction = map(lives, 0, 60, 0, 1);
-
+    stroke(255);
     scale(reduction);
     fill(255, random(75, 255), 8, m);
     circle(0, 0, big);

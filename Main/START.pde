@@ -27,12 +27,7 @@ void starts() {
 
   if (startbutton.clicked) {
     mode = game;
-
-    objects = new ArrayList();
-    player = new Spaceship();
-    objects.add(player);
-    objects.add(new rocks());
-    objects.add(new rocks());
+    objInstantiate();
     //objects.add(new rocks());
     //objects.add(new rocks());
   }
