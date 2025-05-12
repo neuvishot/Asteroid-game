@@ -1,6 +1,6 @@
 void game_button_instantiate() {
   toPause = new button(width - 100, height - 100, 75, 75, white, black, "text", ".pic");
-  toOver = new button(100, height-100, 75, 75, red, black, "gameover", ".png");
+  toOver = new button(width -100, height/2, 75, 75, red, black, "gameover", ".png");
 }
 // global d variable
 int d = 100;
@@ -43,6 +43,25 @@ void game() {
     lose = true;
   }
 
+    // behind heart ------------------------
+    fill(#FFC036);
+    noStroke();
+    ellipse(190, 0, 100, 150);
+    rectMode(LEFT);
+    rect(-5, -5, 190, 75);
+    stroke(0);
+    rectMode(CENTER);
+
+    if (player.lives == 3) {
+      image(heart, 50, 40, 75, 75);
+      image(heart, 120, 40, 75, 75);
+      image(heart, 190, 40, 75, 75);
+    } else if (player.lives  == 2) {
+      image(heart, 50, 40, 75, 75);
+      image(heart, 120, 40, 75, 75);
+    } else if (player.lives  == 1) {
+      image(heart, 50, 40, 75, 75);
+    }
 }
 
 void gameClicks() {

@@ -80,7 +80,7 @@ class rocks extends GameObject {
       //      }
 
 
-      if (obj instanceof bullet) { // add goiod bullet boolean later
+      if (obj instanceof bullet && ((bullet)obj).bad == false) { // add goiod bullet boolean later
         // checking to see if the object nearing is of the bullet class
         // if the distance between these x and y's are less than their radius combined then..
         if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && lives == 3) {
@@ -102,7 +102,7 @@ class rocks extends GameObject {
           
           // particles
           partimer = 10;
-          while (partimer >=0) {
+          while(partimer >=0) {
             objects.add(new particle(loc.copy(), vel.copy().rotate(radians(random(0, 360))), 60));
             partimer--;
           }

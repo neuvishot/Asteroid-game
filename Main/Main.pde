@@ -72,12 +72,15 @@ void objInstantiate(){
   objects.add(new rocks());
   objects.add(new rocks());
   objects.add(new badShip()); 
+  objects.add(new power());
 }
 
 
 void draw() {
   println(mouseX, mouseY);
   //println(objects.size());
+  
+  
   click();
   if (mode == starts) {
     starts();

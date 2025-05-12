@@ -6,6 +6,9 @@ class Spaceship extends GameObject {
   int shield = 400;
   int imgTint = 60;
   int augh = 3;
+  int partimer = 10;
+  int powerTimer;
+  boolean powerful;
   // nice to addd how many lives you have left
 
   // constructors
@@ -14,8 +17,10 @@ class Spaceship extends GameObject {
     dir = new PVector(1, 0);
     coolInt = 20;
     cooldown = coolInt;
-    diameter = 20;
+    diameter = 30;
     lives = 3;
+    powerTimer = 0;
+    powerful = false;
   }
 
 
@@ -27,26 +32,6 @@ class Spaceship extends GameObject {
     rotate(dir.heading());
     drawship();
     popMatrix();
-
-    // behind heart ------------------------
-    fill(#FFC036);
-    noStroke();
-    ellipse(190, 0, 100, 150);
-    rectMode(LEFT);
-    rect(-5, -5, 190, 75);
-    stroke(0);
-    rectMode(CENTER);
-
-    if (lives == 3) {
-      image(heart, 50, 40, 75, 75);
-      image(heart, 120, 40, 75, 75);
-      image(heart, 190, 40, 75, 75);
-    } else if (lives == 2) {
-      image(heart, 50, 40, 75, 75);
-      image(heart, 120, 40, 75, 75);
-    } else if (lives == 1) {
-      image(heart, 50, 40, 75, 75);
-    }
   }
 
 
@@ -97,17 +82,25 @@ class Spaceship extends GameObject {
     shoot();
     wrap();
     checkForCollisions(); // i have no udea lmfao
+    powerUp();
     //println(lives);
-
+    powerful = false;
     // img tint
     imgTint = imgTint + augh;
     if (imgTint > 70 || imgTint < 20) augh = augh * -1;
   }
 
-  // for act:
+
+
+  // for act: -------------------------------------------------------------------------------------------
+  void powerUp(){
+   
+    
+  }
+  
   void move() {
     loc.add(vel);
-    int i = 2;
+    int i = 3;
     if (vel.mag() > i) {
       vel.setMag(i);
     } else if (vel.mag() < -i) {
@@ -137,18 +130,44 @@ class Spaceship extends GameObject {
 
   void checkForCollisions() {
     int i = 0;
+    shield--;
     while (i < objects.size()) {
       GameObject obj = objects.get(i);
-      shield--;
 
+      // powerup ------------------------------------------------------------------------------------------------------- powerup
 
-      if (obj instanceof rocks) {
+      if (obj instanceof power) { // colliding with player ---------------------------------
+        if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2) {
+          powerTimer = 300;
+          powerful = true;
+        }
+      }
+
+// collision with ufo bullets -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      if (obj instanceof bullet && ((bullet)obj).bad == true) { 
+        if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && shield <= 0) {
+          lives = lives -1;
+          shield = 500;
+          imgTint = 50;
+          ((bullet)obj).lives = 0;
+
+          if (partimer > 0) {
+            objects.add(new particle(loc.copy(), vel.copy().rotate(radians(random(0, 360))), 60));
+            partimer--;
+          }
+        }
+      }
+
+      if (obj instanceof rocks) { // collision wth asteroids---------------------------------------------------------------------------------------------------------------------
         if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && shield <=0) {
 
           lives = lives -1;
           shield = 500;
+          imgTint = 50;
         }
       }
+
+      // shield ---------------------------------------------------------------------------------------------------------------------
       if (shield >= 0) {
         pushMatrix();
         translate(loc.x, loc.y);

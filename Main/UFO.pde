@@ -1,23 +1,21 @@
 class badShip extends GameObject {
 
   int timer;
-  int alive;
   int edge;
   PVector aim;
+  int partimer;
 
   badShip() {
     super(random(width), random(height), 1);
     edge = (int)random(1, 4);
     aim = new PVector (player.loc.x - loc.x, player.loc.y - loc.y);
     vel = aim;
-    vel.setMag(1);
-    timer = 60;
-    diameter = 10;
-    alive = 0;
+    timer = 180;
+    diameter = 40;
   }
 
   void show() {
-    if (timer < 0 && alive > 0) {
+    if (timer < 0) {
       pushMatrix();
       translate(loc.x, loc.y);
       stroke(#666C34);
@@ -38,43 +36,67 @@ class badShip extends GameObject {
   }
 
   //make it appear in edge e.g:
-
   void act() {
-    alive--;
     timer--;
     appear();
-    shoot();
-    wrap();
     loc.add(vel);
 
-    if (alive < 0) {
-      timer = 180;
+    if (timer < 0) {
+      shoot();
+      collision();
+      if (loc.x > width + diameter + 10 || loc.x < -diameter - 10|| loc.y > height + diameter + 10 || loc.y < -diameter -10) {
+        timer = 300;
+      }
     }
   }
 
+  void collision() {
+    int i = 0;
+    while (i < objects.size()) {
+      GameObject obj = objects.get(i);
+
+      if (obj instanceof bullet && ((bullet)obj).bad == false) {
+        if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2) {
+          timer = 300;
+          partimer = 10;
+          ((bullet)obj).lives = 0;
+
+          if (partimer >=0) {
+            objects.add(new particle(loc.copy(), vel.copy().rotate(radians(random(0, 360))), 60));
+            partimer--;
+          }
+        }
+      }
+      i++;
+    }
+  }
+
+
   void appear() {
     if (timer == 0) {
-      alive = 180;
       edge = (int)random(1, 4);
       aim = new PVector (player.loc.x - loc.x, player.loc.y - loc.y);
       vel = aim;
       vel.setMag(2);
 
       if (edge == 0) { // left
-        loc.x = 0;
+        loc.x = -diameter;
         loc.y = random(height);
       } else if ( edge == 1) { // top
         loc.x = random(width);
-        loc.y = 0;
+        loc.y = -diameter;
       } else if (edge == 2) { // right
-        loc.x = width;
+        loc.x = width + diameter;
         loc.y = random(height);
       } else if (edge == 3) { // bottom
         loc.x = random(width);
-        loc.y = height;
+        loc.y = height + diameter;
       }
     }
   }
   void shoot() {
+    if (frameCount % 30 == 0) {
+      objects.add(new bullet(loc.copy(), vel.copy(), 60));
+    }
   }
 }
