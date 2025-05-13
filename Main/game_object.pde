@@ -25,6 +25,9 @@ class GameObject {
     loc = l;
     lives = lv;
   }
+   GameObject( int lv) {
+    lives = lv;
+  }
 
   GameObject(PVector l, PVector v, int lv) { // i dont really understand lives
     loc = l;

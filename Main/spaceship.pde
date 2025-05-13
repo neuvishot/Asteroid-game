@@ -93,11 +93,20 @@ class Spaceship extends GameObject {
 
 
   // for act: -------------------------------------------------------------------------------------------
-  void powerUp(){
-   
-    
+  void powerUp() {
+    if (powerful) {
+      powerTimer = 120;
+    }
+
+    if (powerTimer > 0) {
+      text("Infinte bullets!!", width/2, height/2, 300, 300);
+      powerTimer--;
+      if (spacekey && powerTimer > 0 && frameCount % 3 == 0) {
+        objects.add(new bullet());
+      }
+    }
   }
-  
+
   void move() {
     loc.add(vel);
     int i = 3;
@@ -120,6 +129,8 @@ class Spaceship extends GameObject {
     if (leftkey) dir.rotate(-radians(3));
     if (rightkey) dir.rotate(radians(3));
   }
+  
+  
   void shoot() {
     cooldown--;
     if (spacekey && cooldown <= 0 || downkey && cooldown <= 0) {
@@ -135,16 +146,15 @@ class Spaceship extends GameObject {
       GameObject obj = objects.get(i);
 
       // powerup ------------------------------------------------------------------------------------------------------- powerup
-
       if (obj instanceof power) { // colliding with player ---------------------------------
         if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2) {
-          powerTimer = 300;
           powerful = true;
+          obj.lives = 0;
         }
       }
 
-// collision with ufo bullets -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-      if (obj instanceof bullet && ((bullet)obj).bad == true) { 
+      // collision with ufo bullets -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      if (obj instanceof bullet && ((bullet)obj).bad == true) {
         if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && shield <= 0) {
           lives = lives -1;
           shield = 500;

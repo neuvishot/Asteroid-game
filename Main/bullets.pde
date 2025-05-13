@@ -25,7 +25,17 @@ class bullet extends GameObject {
     bad = true;
   }
 
-
+  bullet(int lv) {
+    super(lv);
+    // no need to do a new PVector bcs its been taken from the superclass
+    loc = player.loc.copy();
+    aim = new PVector (player.loc.x - mouseX, player.loc.y - mouseY);
+    vel = aim;
+    vel.setMag(8);
+    timer = lv;
+    diameter = 5;
+    bad = false;
+  }
   // behaviorsa
   void show() {
     if (!bad) {
