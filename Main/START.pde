@@ -13,7 +13,13 @@ void starts() {
   startbutton.show();
   startbutton.clicked();
   startbutton.words();
-
+  
+  fill(0);
+  textSize(100);
+  textFont(jack);
+  text("Get rid of the opps!", width/2, height/2);
+  
+  circle(100, 100, 100);
   int i = 0;
   while (i < objects.size()) {
     GameObject currentObject = objects.get(i);

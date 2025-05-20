@@ -15,6 +15,7 @@ class gifs { //  start gif class -----------------------------------------------
     w = ww;
     h = hh;
 
+
     // for loading images
     n = numberOfFrames;
     t1 = tt1;
@@ -68,7 +69,7 @@ class button { // --------------------------------------------------------------
   String text, pic;
   boolean clicked;
   PImage photo;
-
+  float size;
   // copy and paste and fill:
   // button(x, y, w, h, normcol, highcol, xxx, "text", ".pic");
 
@@ -78,6 +79,7 @@ class button { // --------------------------------------------------------------
     y = yy;
     w = ww;
     h = hh;
+    size = w/4;
     norm = norms;
     high = highs;
     text = Text;
@@ -87,7 +89,7 @@ class button { // --------------------------------------------------------------
 
   void words() {
     textAlign(CENTER, CENTER);
-    textSize(w/4);
+    textSize(size);
     if (touchMouse()) {
       fill(255);
     } else {

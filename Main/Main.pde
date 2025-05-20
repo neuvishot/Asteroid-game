@@ -14,7 +14,10 @@ color white = #FFFFFF;
 // keys
 boolean upkey, downkey, leftkey, rightkey, spacekey;
 
-PImage cat, squire, hamp, shields, heart;
+PImage cat, squire, hamp, shields, heart, nul;
+
+// fonts
+PFont jack, sun;
 
 // buttons
 button startbutton, toPause, toGame, toStart, toOver;
@@ -28,6 +31,11 @@ Spaceship player;
 // list of bullets
 ArrayList<GameObject> objects;
 
+// soore and aesthetics
+int score, highscore;
+boolean win;
+
+
 void setup() {
   // images -----------------------------------------------------------
   imageMode(CENTER);
@@ -37,27 +45,35 @@ void setup() {
   shields = loadImage("shield.png");
   heart = loadImage("lives.png");
   ufo = loadImage("ufo.png");
-  
+  nul = loadImage("restart.jpg");
+  win = false;
+
   // img end -----------------------------------------------------------------
-  
-  objInstantiate();  
- 
+
+  // font
+  jack = createFont("Jack Sphinx.ttf", 50);
+  sun = createFont("Sunroof & Summer.ttf", 50);
+
+  objInstantiate();
+
   //objects.add(new rocks());
   //objects.add(new rocks());
 
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
+
+  score = highscore = 0;
   //loc = new PVector(width/2, height/2);
   //vel = new PVector(5, 0);
   //vel.rotate(random(0, 2*PI));
   //gravity = new PVector(0, 1);
 
   size(600, 600);
-  
-  // change starting room -------------------------------------------------------------
+
+  // change starting room --------------------------------------------------------------
   mode = game;
   // ------------------------------------------------------------------------------------
-  
+
   Start_instantiates();
   pause_button_instantiate();
   game_button_instantiate();
@@ -65,22 +81,27 @@ void setup() {
 
   // still needs to be improved
 }
-void objInstantiate(){
-   objects = new ArrayList();
+void objInstantiate() {
+  if (score > highscore) highscore = score;
+  objects = new ArrayList();
   player = new Spaceship();
   objects.add(player);
   objects.add(new rocks());
   objects.add(new rocks());
-  objects.add(new badShip()); 
+  objects.add(new rocks());
+  objects.add(new rocks());
+  objects.add(new badShip());
   objects.add(new power());
+  score = 0;
+  win = false;
 }
 
 
 void draw() {
   println(mouseX, mouseY);
   //println(objects.size());
-  
-  
+
+
   click();
   if (mode == starts) {
     starts();

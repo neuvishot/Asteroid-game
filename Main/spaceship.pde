@@ -7,8 +7,8 @@ class Spaceship extends GameObject {
   int imgTint = 60;
   int augh = 3;
   int partimer = 10;
-  int powerTimer;
-  boolean powerful;
+  boolean power;
+
   // nice to addd how many lives you have left
 
   // constructors
@@ -19,8 +19,7 @@ class Spaceship extends GameObject {
     cooldown = coolInt;
     diameter = 30;
     lives = 3;
-    powerTimer = 0;
-    powerful = false;
+    power = false;
   }
 
 
@@ -82,30 +81,19 @@ class Spaceship extends GameObject {
     shoot();
     wrap();
     checkForCollisions(); // i have no udea lmfao
-    powerUp();
     //println(lives);
-    powerful = false;
+
+
+
     // img tint
-    imgTint = imgTint + augh;
-    if (imgTint > 70 || imgTint < 20) augh = augh * -1;
+    //imgTint = imgTint + augh;
+    //if (imgTint > 70 || imgTint < 20) augh = augh * -1;
   }
 
 
 
   // for act: -------------------------------------------------------------------------------------------
-  void powerUp() {
-    if (powerful) {
-      powerTimer = 120;
-    }
 
-    if (powerTimer > 0) {
-      text("Infinte bullets!!", width/2, height/2, 300, 300);
-      powerTimer--;
-      if (spacekey && powerTimer > 0 && frameCount % 3 == 0) {
-        objects.add(new bullet());
-      }
-    }
-  }
 
   void move() {
     loc.add(vel);
@@ -129,13 +117,32 @@ class Spaceship extends GameObject {
     if (leftkey) dir.rotate(-radians(3));
     if (rightkey) dir.rotate(radians(3));
   }
-  
-  
+
+
+  int coolPower;
+
   void shoot() {
     cooldown--;
+    coolPower--;
     if (spacekey && cooldown <= 0 || downkey && cooldown <= 0) {
       objects.add(new bullet());
       cooldown = coolInt;
+    }
+
+    if (power) {
+      coolPower = 120;
+      power = false;
+    }
+
+    if (coolPower > 0) {
+      text("Spam the Spacekey!!", width/2, height/2);
+      if (spacekey && frameCount % 3 == 0){
+        objects.add(new bullet()); 
+      }
+    }
+    if (coolPower == 0) {
+      power = false;
+      objects.add(new power());
     }
   }
 
@@ -145,13 +152,6 @@ class Spaceship extends GameObject {
     while (i < objects.size()) {
       GameObject obj = objects.get(i);
 
-      // powerup ------------------------------------------------------------------------------------------------------- powerup
-      if (obj instanceof power) { // colliding with player ---------------------------------
-        if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2) {
-          powerful = true;
-          obj.lives = 0;
-        }
-      }
 
       // collision with ufo bullets -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
       if (obj instanceof bullet && ((bullet)obj).bad == true) {
@@ -181,16 +181,23 @@ class Spaceship extends GameObject {
       if (shield >= 0) {
         pushMatrix();
         translate(loc.x, loc.y);
-        rotate(dir.heading()+radians(90));
-        tint(255, imgTint);
-        image(shields, 0, -10, 90, 90);
-        tint(255, 255);
+        rotate(dir.heading());
+        //tint(255, imgTint);
+        //tint(255, 50);
+        //image(shields, 0, -10, 90, 90);
+        //tint(255, 255);
+        noStroke();
+        fill(#51FA79, 20);
+        circle(-5, 0, 50);
+        circle(35, 0, 20);
+        circle(25, -20, 20);
+        circle(25, 20, 20);
         popMatrix();
       }
 
       if (lives <= 0) {
         mode = gameover;
-        lose = true;
+        win = false;
       }
       i++;
     }
