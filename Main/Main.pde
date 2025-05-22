@@ -1,3 +1,10 @@
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+
 import java.util.ArrayList;
 
 int mode;
@@ -20,8 +27,11 @@ PImage cat, squire, hamp, shields, heart, nul;
 PFont jack, sun;
 
 // buttons
-button startbutton, toPause, toGame, toStart, toOver;
+button startbutton, toPause, toGame, toStart, toOver, ptoOver;
 boolean yesClicked;
+
+Minim minimmol;
+AudioPlayer music, success, fail, ingame, wins;
 
 // vecotrs:
 //PVector loc, vel, gravity;
@@ -50,6 +60,14 @@ void setup() {
 
   // img end -----------------------------------------------------------------
 
+  // audio
+  minimmol = new Minim(this);
+  music = minimmol.loadFile("start.mp3");
+  ingame = minimmol.loadFile("upbeat.mp3");
+  success = minimmol.loadFile("gun.mp3");
+  fail = minimmol.loadFile("FAILURE.wav");
+  wins = minimmol.loadFile("end.mp3");
+
   // font
   jack = createFont("Jack Sphinx.ttf", 50);
   sun = createFont("Sunroof & Summer.ttf", 50);
@@ -71,7 +89,7 @@ void setup() {
   size(600, 600);
 
   // change starting room --------------------------------------------------------------
-  mode = game;
+  mode = starts;
   // ------------------------------------------------------------------------------------
 
   Start_instantiates();
@@ -94,6 +112,8 @@ void objInstantiate() {
   objects.add(new power());
   score = 0;
   win = false;
+ 
+  ingame.rewind();
 }
 
 

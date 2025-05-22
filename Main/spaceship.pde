@@ -25,7 +25,6 @@ class Spaceship extends GameObject {
 
   // behavior functions
   void show() {
-
     pushMatrix();
     translate(loc.x, loc.y);
     rotate(dir.heading());
@@ -89,12 +88,7 @@ class Spaceship extends GameObject {
     //imgTint = imgTint + augh;
     //if (imgTint > 70 || imgTint < 20) augh = augh * -1;
   }
-
-
-
   // for act: -------------------------------------------------------------------------------------------
-
-
   void move() {
     loc.add(vel);
     int i = 3;
@@ -120,10 +114,13 @@ class Spaceship extends GameObject {
 
 
   int coolPower;
+  float bar;
 
   void shoot() {
     cooldown--;
     coolPower--;
+    
+    bar = map(coolPower, 0, 120, 0, PI*2);
     if (spacekey && cooldown <= 0 || downkey && cooldown <= 0) {
       objects.add(new bullet());
       cooldown = coolInt;
@@ -136,8 +133,15 @@ class Spaceship extends GameObject {
 
     if (coolPower > 0) {
       text("Spam the Spacekey!!", width/2, height/2);
-      if (spacekey && frameCount % 3 == 0){
-        objects.add(new bullet()); 
+      
+      noFill();
+      strokeWeight(4);
+      stroke(yellow);
+      arc(loc.x, loc.y, 100, 100, 0, bar);
+      
+      //rect(width/2- 100, height/2+20, coolPower, 50);
+      if (spacekey && frameCount % 3 == 0) {
+        objects.add(new bullet());
       }
     }
     if (coolPower == 0) {
@@ -186,8 +190,8 @@ class Spaceship extends GameObject {
         //tint(255, 50);
         //image(shields, 0, -10, 90, 90);
         //tint(255, 255);
-        noStroke();
-        fill(#51FA79, 20);
+        stroke(#51FA79);
+        noFill();
         circle(-5, 0, 50);
         circle(35, 0, 20);
         circle(25, -20, 20);

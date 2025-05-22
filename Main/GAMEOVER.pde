@@ -5,10 +5,12 @@ void gameover_button_instantiate() {
 gifs sad;
 
 void gameover() {
+  ingame.pause();
+  music.rewind();
   if (!win) {
     fill(0);
     textFont(jack);
-
+    fail.play();
     sad.act();
     sad.show();
     image(cat, 520, 380, 150, 150);
@@ -29,6 +31,7 @@ void gameover() {
     textSize(18);
     text("Universal domination must wait...", width/2, 65);
   } else if (win) {
+    wins.play();
     fill(255);
     textFont(jack);
     textSize(50);
@@ -49,7 +52,11 @@ void gameover() {
 
 
   if (toStart.clicked) {
+    fail.pause();
     mode = starts;
+    music.play();
+    fail.rewind();
+    wins.rewind();
   }
 }
 

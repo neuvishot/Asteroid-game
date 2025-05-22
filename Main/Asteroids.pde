@@ -86,27 +86,29 @@ class rocks extends GameObject {
         // checking to see if the object nearing is of the bullet class
         // if the distance between these x and y's are less than their radius combined then..
         if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && lives == 3) {
-             score++;
+          success.play();
+          score++;
           lives = 0; // current objects lives (asteroid)
           obj.lives = 0; // bullet dies
-       
+
           objects.add(new rocks(loc, vel.copy(), 2));
           objects.add(new rocks(loc.copy(), vel.copy().rotate(radians(random(100, 180))), 2));
 
-
+          success.rewind();
           // particles
           while (partimer >=0) {
             objects.add(new particle(loc.copy(), vel.copy().rotate(radians(random(0, 360))), 60));
             partimer--;
           }// ---------------------------------------------------------------------------------------------------------
         } else if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && lives == 2) {
-            score++;
+          success.play();
+          score++;
           lives = 0;
           obj.lives = 0;
-        
+
           objects.add(new rocks(loc, vel.copy(), 1));
           objects.add(new rocks(loc.copy(), vel.copy().rotate(radians(random(100, 180))), 1));
-
+          success.rewind();
           // particles
           partimer = 10;
           while (partimer >=0) {
@@ -114,10 +116,12 @@ class rocks extends GameObject {
             partimer--;
           }
         } else if (dist(loc.x, loc.y, obj.loc.x, obj.loc.y) < diameter/2 + obj.diameter/2 && lives == 1) {
+          success.play();
           lives = 0;
           score++;
           // particles
           partimer = 10;
+          success.rewind();
           while (partimer >=0) {
             objects.add(new particle(loc.copy(), vel.copy().rotate(radians(random(0, 360))), 60));
             partimer--;

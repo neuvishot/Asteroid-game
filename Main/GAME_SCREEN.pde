@@ -1,11 +1,12 @@
 void game_button_instantiate() {
-  toPause = new button(width - 100, height - 100, 75, 75, white, black, "text", ".pic");
+  toPause = new button(width - 50, 50, 50, 50, white, black, "||", ".pic");
   toOver = new button(width/2, height/2+50, 350, 80, red, black, "To above and beyond!", ".png");
 }
 // global d variable
 int d = 100;
 
 void game() {
+  ingame.play();
   background(black);
   // player, bullets and asteroids ------------------------------------------------
   int i = 0;
@@ -31,6 +32,7 @@ void game() {
   // buttons ----------------------------------------------------
   toPause.show();
   toPause.clicked();
+  toPause.words();
   if (toPause.clicked) {
     mode = pause;
     win = false;
@@ -63,7 +65,7 @@ void game() {
   text("Score:"+score, 90, height - 75);
   text("Highscore:"+highscore, 130, height - 35);
 
-  if (score >= 28) {
+  if (score >= 26) {
     fill(255, 50);
     rect(width/2, height/2, width+10, height+10);
     fill(255);
