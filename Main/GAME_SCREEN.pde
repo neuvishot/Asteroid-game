@@ -4,7 +4,7 @@ void game_button_instantiate() {
 }
 // global d variable
 int d = 100;
-
+boolean areThereAsteroids;
 void game() {
   ingame.play();
   background(black);
@@ -23,7 +23,8 @@ void game() {
       i++;
     }
     
-    
+    check();
+
   }
 
   player.show();
@@ -48,16 +49,16 @@ void game() {
   rect(-5, -5, 190, 75);
   stroke(0);
   rectMode(CENTER);
-
+int a = 60;
   if (player.lives == 3) {
-    image(heart, 50, 40, 75, 75);
-    image(heart, 120, 40, 75, 75);
-    image(heart, 190, 40, 75, 75);
+    image(shields, 50, 40, a, a);
+    image(shields, 120, 40, a, a);
+    image(shields, 190, 40, a, a);
   } else if (player.lives  == 2) {
-    image(heart, 50, 40, 75, 75);
-    image(heart, 120, 40, 75, 75);
+    image(shields, 50, 40, a, a);
+    image(shields, 120, 40, a, a);
   } else if (player.lives  == 1) {
-    image(heart, 50, 40, 75, 75);
+    image(shields, 50, 40, a, a);
   }
 
   textFont(sun);
@@ -65,28 +66,70 @@ void game() {
   text("Score:"+score, 90, height - 75);
   text("Highscore:"+highscore, 130, height - 35);
 
-  if (score >= 26) {
-    fill(255, 50);
-    rect(width/2, height/2, width+10, height+10);
-    fill(255);
-    noStroke();
-    circle(width/2, height/2 -70, 110);
-    circle(width/2+80, height/2-30, 77);
-    circle(width/2-80, height/2-30, 77);
-    image(cat, width/2, height/2 -70, 150, 150);
-    image(squire, width/2+80, height/2-30, 100, 100);
-    image(hamp, width/2-80, height/2-30, 100, 100);
-    stroke(0);
-    toOver.size = 16;
-    toOver.show();
-    toOver.words();
-    toOver.clicked();
-    if (toOver.clicked) {
-      mode = gameover;
-      win = true;
+  //if (score >= 26) {
+  //  fill(255, 50);
+  //  rect(width/2, height/2, width+10, height+10);
+  //  fill(255);
+  //  noStroke();
+  //  circle(width/2, height/2 -70, 110);
+  //  circle(width/2+80, height/2-30, 77);
+  //  circle(width/2-80, height/2-30, 77);
+  //  image(cat, width/2, height/2 -70, 150, 150);
+  //  image(squire, width/2+80, height/2-30, 100, 100);
+  //  image(hamp, width/2-80, height/2-30, 100, 100);
+  //  stroke(0);
+  //  toOver.size = 16;
+  //  toOver.show();
+  //  toOver.words();
+  //  toOver.clicked();
+  //  if (toOver.clicked) {
+  //    mode = gameover;
+  //    win = true;
+  //  }
+  //}
+  
+  if (areThereAsteroids == false) {
+      fill(255, 50);
+      rect(width/2, height/2, width+10, height+10);
+      fill(yellow);
+      circle(width/2, height/2, 300);
+      
+      
+      fill(255);
+      noStroke();
+      circle(width/2, height/2 -70, 110);
+      circle(width/2+80, height/2-30, 77);
+      circle(width/2-80, height/2-30, 77);
+      image(cat, width/2, height/2 -70, 150, 150);
+      image(squire, width/2+80, height/2-30, 100, 100);
+      image(hamp, width/2-80, height/2-30, 100, 100);
+      stroke(0);
+      toOver.size = 16;
+      toOver.show();
+      toOver.words();
+      toOver.clicked();
+      if (toOver.clicked) {
+        mode = gameover;
+        win = true;
+      }
     }
-  }
 }
 
 void gameClicks() {
+}
+
+
+
+
+
+
+void check(){
+  int i = 0;
+  areThereAsteroids = false;
+  while (i < objects.size()) { // whats .size?
+    GameObject currentObject = objects.get(i);
+    if (currentObject instanceof rocks)
+      areThereAsteroids = true;
+    i++;
+  }
 }
