@@ -8,7 +8,8 @@ class Spaceship extends GameObject {
   int augh = 3;
   int partimer = 10;
   boolean power;
-
+  int erm = 0;
+  float telpx, telpy;
   // nice to addd how many lives you have left
 
   // constructors
@@ -61,16 +62,6 @@ class Spaceship extends GameObject {
     //triangle(25, -5, -20, -25, -20, -15);
     //triangle(25, 5, -20, 25, -20, 15);
 
-
-
-    // old deisng
-    //fill(white);
-    //stroke(white);
-    //strokeWeight(2);
-    //triangle(-10, -10, -10, 10, 30, 0);
-    //fill(black);
-    //stroke(black);
-    //circle(10, 0, 5);
     popMatrix();
   }
 
@@ -79,14 +70,12 @@ class Spaceship extends GameObject {
     move();
     shoot();
     wrap();
-    checkForCollisions(); // i have no udea lmfao
-    //println(lives);
-
-
-
-    // img tint
-    //imgTint = imgTint + augh;
-    //if (imgTint > 70 || imgTint < 20) augh = augh * -1;
+    checkForCollisions();
+    if (teleport.clicked) {
+      teleport();
+      telpx = random(width);
+      telpy = random(height);
+    }
   }
   // for act: -------------------------------------------------------------------------------------------
   void move() {
@@ -119,7 +108,7 @@ class Spaceship extends GameObject {
   void shoot() {
     cooldown--;
     coolPower--;
-    
+
     bar = map(coolPower, 0, 120, 0, PI*2);
     if (spacekey && cooldown <= 0 || downkey && cooldown <= 0) {
       objects.add(new bullet());
@@ -133,12 +122,12 @@ class Spaceship extends GameObject {
 
     if (coolPower > 0) {
       text("Spam the Spacekey!!", width/2, height/2);
-      
+
       noFill();
       strokeWeight(4);
       stroke(yellow);
       arc(loc.x, loc.y, 100, 100, 0, bar);
-      
+
       //rect(width/2- 100, height/2+20, coolPower, 50);
       if (spacekey && frameCount % 3 == 0) {
         objects.add(new bullet());
@@ -147,6 +136,41 @@ class Spaceship extends GameObject {
     if (coolPower == 0) {
       power = false;
       objects.add(new power());
+    }
+  }
+
+
+  void teleport() {
+    int trys = 10;
+    boolean yay = false;
+
+    //float safeDistance;
+    telpTime = 180;
+    activated = false;
+    erm = 0;
+    // checking if its safe --------------------------------------------------------
+    while (erm < objects.size()) {
+      GameObject currentObject = objects.get(erm);
+
+      //for (int a = 0; a < trys; a++) {
+      if (currentObject instanceof rocks) {
+        float d = dist(telpx, telpy, currentObject.loc.x, currentObject.loc.y);
+        if (d > player.diameter/2 + currentObject.diameter/2) {
+          yay = true;
+        } else if (d < player.diameter/2 + currentObject.diameter/2) {
+          yay = false;
+        }
+      }
+      //}
+      erm++;
+    }
+    if (yay) {
+      player.loc.x = telpx;
+      player.loc.y = telpy;
+      yay = false;
+      erm = 0;
+    } else {
+      println("it dont work");
     }
   }
 

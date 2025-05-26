@@ -23,34 +23,7 @@ void game() {
     currentObject.act();
     currentObject.show();
 
-    int trys = 10;
-    boolean yay = false;
-    float telpx, telpy, finalx, finaly;
-    //float safeDistance;
-
-    if (teleport.clicked) {
-      telpTime = 180;
-      activated = false;
-
-      for (int a = 0; a < trys; a++) {
-        telpx = random(width);
-        telpy = random(height);
-        if (currentObject instanceof rocks) {
-          float d = dist(telpx, telpy, currentObject.loc.x, currentObject.loc.y);
-          if (d > player.diameter/2 + currentObject.diameter/2) {
-            yay = true;
-          } else if (d < player.diameter/2 + currentObject.diameter/2) {
-            finalx = telpx;
-            finaly = telpy;
-          }
-          if (yay) {
-            player.loc.x = finalx;
-            player.loc.y = finaly;
-            yay = false;
-          }
-        }
-      }
-    }
+ 
 
 
     //if (actClick) {
