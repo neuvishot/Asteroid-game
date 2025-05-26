@@ -27,7 +27,7 @@ PImage cat, squire, hamp, shields, heart, nul;
 PFont jack, sun;
 
 // buttons
-button startbutton, toPause, toGame, toStart, toOver, ptoOver;
+button startbutton, toPause, toGame, toStart, toOver, ptoOver, teleport;
 boolean yesClicked;
 
 Minim minimmol;
@@ -89,7 +89,7 @@ void setup() {
   size(600, 600);
 
   // change starting room --------------------------------------------------------------
-  mode = starts;
+  mode = game;
   // ------------------------------------------------------------------------------------
 
   Start_instantiates();
@@ -112,6 +112,7 @@ void objInstantiate() {
   objects.add(new power());
   score = 0;
   win = false;
+  telpTime = 180;
  
   ingame.rewind();
 }
