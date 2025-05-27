@@ -8,7 +8,7 @@ class Spaceship extends GameObject {
   int augh = 3;
   int partimer = 10;
   boolean power;
-  int erm = 0;
+  int i = 0;
   float telpx, telpy;
   // nice to addd how many lives you have left
 
@@ -73,8 +73,7 @@ class Spaceship extends GameObject {
     checkForCollisions();
     if (teleport.clicked) {
       teleport();
-      telpx = random(width);
-      telpy = random(height);
+      teleport.clicked = false;
     }
   }
   // for act: -------------------------------------------------------------------------------------------
@@ -147,28 +146,34 @@ class Spaceship extends GameObject {
     //float safeDistance;
     telpTime = 180;
     activated = false;
-    erm = 0;
-    // checking if its safe --------------------------------------------------------
-    while (erm < objects.size()) {
-      GameObject currentObject = objects.get(erm);
+    i = 0;
+    telpx = random(width);
+    telpy = random(height);
+    //player.loc.x = telpx;
+    //player.loc.y = telpy;
 
-      //for (int a = 0; a < trys; a++) {
-      if (currentObject instanceof rocks) {
-        float d = dist(telpx, telpy, currentObject.loc.x, currentObject.loc.y);
-        if (d > player.diameter/2 + currentObject.diameter/2) {
-          yay = true;
-        } else if (d < player.diameter/2 + currentObject.diameter/2) {
-          yay = false;
+    // checking if its safe --------------------------------------------------------
+    while (i < objects.size()) {
+      GameObject obj = objects.get(i);
+      for (int a = 0; a < trys; a++) {
+        if (obj instanceof rocks) {
+          float d = dist(telpx, telpy, obj.loc.x, obj.loc.y);
+          if (d > player.diameter/2 + obj.diameter/2) {
+            yay = true;
+            println("safe");
+          } else if (d < player.diameter/2 + obj.diameter/2) {
+            yay = false;
+            println("haha no");
+          }
         }
       }
-      //}
-      erm++;
+      i++;
     }
     if (yay) {
       player.loc.x = telpx;
       player.loc.y = telpy;
       yay = false;
-      erm = 0;
+      i = 0;
     } else {
       println("it dont work");
     }

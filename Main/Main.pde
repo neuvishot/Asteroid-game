@@ -113,6 +113,7 @@ void objInstantiate() {
   score = 0;
   win = false;
   telpTime = 180;
+  activated = false;
  
   ingame.rewind();
 }
@@ -121,8 +122,6 @@ void objInstantiate() {
 void draw() {
   println(mouseX, mouseY);
   //println(objects.size());
-
-
   click();
   if (mode == starts) {
     starts();

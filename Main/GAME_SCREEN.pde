@@ -23,7 +23,7 @@ void game() {
     currentObject.act();
     currentObject.show();
 
- 
+
 
 
     //if (actClick) {
@@ -84,6 +84,8 @@ void game() {
   textSize(20);
   text("Score:"+score, 90, height - 75);
   text("Highscore:"+highscore, 130, height - 35);
+  textSize(8);
+  text("Teleport Timer:", 90, height - 160);
 
   // teleport function --------------------
   teltimer();
